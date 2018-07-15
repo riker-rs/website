@@ -1,0 +1,29 @@
+site_name: Riker
+
+pages:
+  - Home: index.md
+  - Actors: actors.md
+  - Message Protocol: protocol.md
+  - Actor Hierarchy: hierarchy.md
+  - Fault Tolerence: supervision.md
+  - Actor Selection: selection.md
+  - Channels: channels.md
+  - Message Scheduling: scheduling.md
+  - Model & Customization: customize.md
+  - Persisting State: persistence.md
+  - Clustering: cluster.md
+  - Configuration: config.md
+  - Logging: logging.md
+  - Running Futures: futures.md
+  - Testing: testing.md
+  - Patterns: patterns.md
+
+theme:
+  name: 'material'
+  palette:
+    primary: 'white'
+    accent: 'white'
+  
+markdown_extensions:
+  - admonition
+  - codehilite
