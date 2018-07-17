@@ -1,4 +1,5 @@
 site_name: Riker
+google_analytics: ['UA-53076020-3', 'riker.rs']
 
 pages:
   - Home: index.md
@@ -27,3 +28,5 @@ theme:
 markdown_extensions:
   - admonition
   - codehilite
+
+
