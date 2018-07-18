@@ -26,9 +26,6 @@ pub trait Model : Sized {
     /// Event store provides the storage system for events/messages
     type Evs: EventStore<Msg=Self::Msg>;
 
-    /// Event store manager provides storing and retreiving of events/messages 
-    type Esm: EsManagerProps<Msg = Self::Msg, Evs = Self::Evs>;
-
     type Tcp: IoManagerProps<Msg = Self::Msg>;
     type Udp: IoManagerProps<Msg = Self::Msg>;
 }
@@ -76,7 +73,6 @@ impl Model for MyModel {
     type Dis = ThreadPoolDispatcher;
     type Ded = DeadLettersActor<Self::Msg>;
     type Tmr = BasicTimer<Self::Msg>;
-    type Esm = EsManagerActor<Self::Evs>;
     type Evs = Redis<Self::Msg>; // <-- a module to provide Redis storage 
     type Tcp = TcpManager<Self::Msg>;
     type Udp = TcpManager<Self::Msg>;
