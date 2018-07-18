@@ -1,5 +1,7 @@
 site_name: Riker
 google_analytics: ['UA-53076020-3', 'riker.rs']
+repo_name: 'GitHub: riker-rs'
+repo_url: 'https://github.com/riker-rs/riker'
 
 pages:
   - Home: index.md
