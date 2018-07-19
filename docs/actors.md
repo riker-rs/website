@@ -133,7 +133,7 @@ fn main() {
 
 Here we've started the actor system and an instance of `MyActor`. Lastly we sent a message to the actor. You'll also notice we also provided a factory function `actor()` and props function `props()` as part of `MyActor`'s implementation.
 
-To see the this example project click [here](https://github.com/riker-rs/examples/basic).
+To see the this example project click [here](https://github.com/riker-rs/examples/tree/master/basic).
 
 !!! note
     If an actor's factory method requires parameters you can use `Props::new_args`. See the Rustdocs for an example.
