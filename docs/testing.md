@@ -2,7 +2,7 @@
 
 Testing concurrent systems can be more difficult than single threaded applications, since the test itself and the application are running on separate threads. Moreover, because of Riker's resilient self-healing approach where panics are isolated, handled and the failed component restarted, detecting failures in tests proves challenging.
 
-To help make testing easier, the `riker-testkit` introduces a 'probe' that can be sent to actors either through messaging or as part of an actor's `Props`. Probes can then emmit values back to the test thread.
+To help make testing easier, the `riker-testkit` introduces a 'probe' that can be sent to actors either through messaging or as part of an actor's `Props`. Probes can then emit values back to the test thread.
 
 Here's an example of testing an actor restart:
 
@@ -47,7 +47,7 @@ impl Actor for MyActor {
             }
             TestMsg::Probe(probe) => {
                 // received probe
-                // let's emmit () empty tuple back to listener
+                // let's emit () empty tuple back to listener
                 probe.event(());
             }
         };
