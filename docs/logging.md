@@ -32,6 +32,7 @@ The default logger has the following features:
 - Log entry format is configurable using named parameters
 - Date and time formats can be configured
 - Log entries can be further filtered at the module level
+- An optional filter can be configured to omit logs from certain modules
 
 Let's take a look at an example log configuration in `riker.toml`:
 
@@ -39,6 +40,16 @@ Let's take a look at an example log configuration in `riker.toml`:
 [log]
 # max level to log
 level = "debug"
+
+# Uncomment this to enable filters on the logger.  The {module} field
+# of every log line will be checked, and if the {module} field contains
+# any item in this list, the entire log line will be omitted from the
+# logging output.
+#
+# This example will omit any logging output from any module with
+# "test" in the name and any module whose name contains "debug".
+#
+filter = [ "test", "debug" ]
 
 # log format to use
 # correlates to format!(log_format, date=, time=, level=, module=, body=);
@@ -63,6 +74,15 @@ This configuration will produce log entries formatted like:
 2018-06-11 08:31:58+00:00 DEBUG [riker::system::system] Actor system started
 2018-06-11 08:31:58+00:00 DEBUG [main] My first log message!
 ```
+
+and the log lines which would have otherwise been printed:
+
+```
+2018-06-11 08:31:58+00:00 DEBUG [testSystem] A test line which should be filtered out!
+2018-06-11 08:31:58+00:00 DEBUG [debug] A debugger module's log message
+```
+
+will be omitted from the log output.
 
 
 
