@@ -1,10 +1,15 @@
 import React from 'react'
+import {Wrapper, Container, MainImage, Headline} from './styled'
+import Image from './MainVisual.png'
 
 const MainVisual = () => {
   return (
-    <div>
-      
-    </div>
+    <Wrapper>
+      <Container>
+        <MainImage src={Image} />
+        <Headline>A framework for building modern, concurrent and resilient applications</Headline>
+      </Container>
+    </Wrapper>
   )
 }
 
