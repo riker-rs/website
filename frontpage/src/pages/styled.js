@@ -11,10 +11,16 @@ export const LayoutHeader = styled.div`
   width: 96%;
 `
 
-export const Section = styled.section``
+export const Section = styled.section`
+  margin: auto;
+  max-width: 1200px;
+  width: 96%;
+`
 
 export const ContentsGrid = styled.div`
-  display: grid;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 `
 
 export const Footer = styled.p`
@@ -22,6 +28,13 @@ export const Footer = styled.p`
   font-style: italic;
 `
 
-export const TimeLineBullet = styled.ul``
+export const TimeLineWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
+export const TimeLineBullet = styled.ul`
+  margin: auto;
+`
 
 export const TimeLineBulletList = styled.li``

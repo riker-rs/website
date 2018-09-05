@@ -5,6 +5,7 @@ import {
   Section,
   ContentsGrid,
   Footer,
+  TimeLineWrapper,
   TimeLineBullet,
   TimeLineBulletList
 } from './styled'
@@ -12,7 +13,8 @@ import GlobalHeader from '../components/Molecules/GlobalHeader'
 import MainVisual from '../components/Organisms/MainVisual'
 import Content from '../components/Molecules/Content'
 import SectionHeader from '../components/Molecules/SectionHeader'
-import {TypeBodyLevel1Center} from '../components/styledTypography'
+import {TypeBodyLevel1Center, TypeBoldItalic, Copyright} from '../components/styledTypography'
+import {Spacer} from '../components/styledUtils'
 
 const IndexPage = () => (
   <div>
@@ -21,8 +23,11 @@ const IndexPage = () => (
     </LayoutHeader>
     <MainVisual />
     <Section>
+      <Spacer size={72} />
       <SectionHeader header='Why Riker'/>
+      <Spacer size={40} />
       <TypeBodyLevel1Center>We believe there is no greater need than now for a full-featured actor model implementation that scales to hundreds or thousands of microservices and that equally can run exceptionally well on resource limited hardware to drive drones, IoT and robotics. The Rust language makes this possible.</TypeBodyLevel1Center>
+      <Spacer size={72} />
       <ContentsGrid>
         <Content
           header='Actor Based Concurrency'
@@ -42,16 +47,32 @@ const IndexPage = () => (
         />
       </ContentsGrid>
     </Section>
-    <Section>
+    <Section >
+      <Spacer size={72} />
       <SectionHeader header='Roadmap'/>
-      <TimeLineBullet>
-        <TimeLineBulletList>Remote actors</TimeLineBulletList>
-        <TimeLineBulletList>Support for TCP and UDP</TimeLineBulletList>
-        <TimeLineBulletList>Support for TCP and UDP</TimeLineBulletList>
-        <TimeLineBulletList>Distributed data (CRDTs)</TimeLineBulletList>
-      </TimeLineBullet>
+      <Spacer size={72} />
+      <TimeLineWrapper>
+        <TimeLineBullet>
+          <TimeLineBulletList>
+            <TypeBoldItalic>Remote actors</TypeBoldItalic>
+          </TimeLineBulletList>
+          <TimeLineBulletList>
+            <TypeBoldItalic>Support for TCP and UDP</TypeBoldItalic>
+          </TimeLineBulletList>
+          <TimeLineBulletList>
+            <TypeBoldItalic>Support for TCP and UDP</TypeBoldItalic>
+          </TimeLineBulletList>
+          <TimeLineBulletList>
+            <TypeBoldItalic>Distributed data (CRDTs)</TypeBoldItalic>
+          </TimeLineBulletList>
+        </TimeLineBullet>
+      </TimeLineWrapper>
     </Section>
-    <Footer>&copy;Riker</Footer>
+    <Spacer size={72} />
+    <Footer>
+      <Copyright>&copy;Riker</Copyright>
+    </Footer>
+    <Spacer size={72} />
   </div>
 )
 
