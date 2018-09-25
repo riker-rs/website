@@ -10,7 +10,7 @@ import {
   TimeLineWrapper,
   TimeLineBullet,
   TimeLineBulletList
-} from './styled'
+} from '../styled'
 import GlobalHeader from '../components/Molecules/GlobalHeader'
 import MainVisual from '../components/Organisms/MainVisual'
 import Content from '../components/Molecules/Content'
