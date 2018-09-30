@@ -31,5 +31,6 @@ theme:
 markdown_extensions:
   - admonition
   - codehilite
+  - pymdownx.details
 
 
