@@ -20,6 +20,7 @@ pages:
   - Running Futures: futures.md
   - Testing: testing.md
   - Patterns: patterns.md
+  - FAQ: faq.md
 
 theme:
   name: 'material'
