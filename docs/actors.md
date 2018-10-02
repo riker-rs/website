@@ -76,8 +76,8 @@ Let's go back to our `MyActor` and combine what we've seen so far in to a comple
 `Cargo.toml` dependencies:
 ```toml
 [dependencies]
-riker = "0.1.7"
-riker-default = "0.1.7"
+riker = "0.1.8"
+riker-default = "0.1.8"
 ```
 
 `main.rs`:
