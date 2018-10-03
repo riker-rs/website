@@ -3,23 +3,25 @@ import styled from 'styled-components'
 export const Wrapper = styled.div`
   background-image: linear-gradient(150deg, #2F0070 0%, #10D2FB 100%);
   position: relative;
-  z-index: -1;
+  z-index: 0;
 `
 
 export const Container = styled.div`
   max-width: 1000px;
   width: 96%;
   margin: auto;
+  padding: 120px 0;
 `
 
 export const Headline = styled.p`
-  font-family: Lato-Black;
-  font-size: 48px;
+  font-family: Lato;
+  font-weight: 700;
+  font-size: 30px;
   color: #FFFFFF;
   letter-spacing: 0.7px;
-  line-height: 64px;
-  width: 320px;
-  padding: 88px 0;
+  line-height: 36px;
+  margin-bottom: 20px;
+  width: 540px;
 `
 
 export const MainImage = styled.img`
@@ -31,3 +33,19 @@ export const MainImage = styled.img`
   width: auto;
   height: auto;
 `
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  width: 210px;
+  justify-content: space-between;
+  margin-bottom: 20px;
+`
+
+export const RepositoryWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  & > span {
+    margin-left: 8px;
+  }
+`
+

@@ -2,13 +2,13 @@ import styled from 'styled-components'
 
 export const TypeBoldHeadingLevel1 = styled.h1`
   font-weight: 700;
-  font-size: 48px;
+  font-size: 30px;
   color: #34495E;
-  line-height: 48px;
+  line-height: 36px;
 `
 
 export const TypeBoldHeadingLevel2 = styled.h2`
-  font-size: 36px;
+  font-size: 28px;
   font-weight: 700;
   color: #34495E;
   line-height: 36px;

@@ -6,6 +6,8 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
+  z-index: 1;
 `
 
 export const RikerWrapper = styled.div`

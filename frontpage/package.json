@@ -8,6 +8,7 @@
     "gatsby-link": "^1.6.46",
     "gatsby-plugin-react-helmet": "^2.0.11",
     "gatsby-plugin-styled-components": "^2.0.11",
+    "prism-react-renderer": "^0.1.4",
     "react-helmet": "^5.2.0",
     "styled-components": "^3.4.5"
   },

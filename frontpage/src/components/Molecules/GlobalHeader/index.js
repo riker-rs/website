@@ -1,7 +1,7 @@
 import React from 'react'
 import RikerLogo from '../../Atoms/Logo/Riker'
-import GithubLogo from '../../Atoms/Logo/Github'
 import {Wrapper, RikerWrapper, HeaderBrandText} from './styled'
+import ExternalLink from '../../Atoms/Link/ExternalLink'
 
 const GlobalHeader = () => {
   return (
@@ -10,7 +10,9 @@ const GlobalHeader = () => {
         <RikerLogo white />
         <HeaderBrandText>Riker</HeaderBrandText>
       </RikerWrapper>
-      <GithubLogo />
+      <nav>
+        <ExternalLink href="">Get started</ExternalLink>
+      </nav>
     </Wrapper>
   )
 }

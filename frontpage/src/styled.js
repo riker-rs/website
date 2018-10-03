@@ -17,6 +17,7 @@ export const LayoutHeader = styled.div`
 
 export const Section = styled.section`
   position: relative;
+  z-index: 1;
   &::after {
     background: ${props => props.bg || '#fff'};
     position: absolute;
@@ -79,3 +80,25 @@ export const TimeLineBullet = styled.ul`
 `
 
 export const TimeLineBulletList = styled.li``
+
+
+export const Pre = styled.pre`
+  text-align: left;
+  margin: 1em auto;
+  padding: 0.5em;
+  max-width: 540px;
+  width: 90%;
+  border-radius: 8px;
+
+  & .token-line {
+    line-height: 1.3em;
+    height: 1.3em;
+  }
+`
+
+export const LineNo = styled.span`
+  display: inline-block;
+  width: 2em;
+  user-select: none;
+  opacity: 0.3;
+`

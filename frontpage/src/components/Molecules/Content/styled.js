@@ -12,7 +12,7 @@ export const ContentHeaderWrapper = styled.div`
 `
 
 export const ContentHeader = styled.div`
-  fon
+  
 `
 
 export const ContentBody = styled.div`
