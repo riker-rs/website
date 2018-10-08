@@ -86,7 +86,7 @@ const IndexPage = () => (
       <SectionContainer>
         <Spacer size={20} />
         <SectionHeader header='Example Code'/>
-        <Spacer size={40} />
+        <Spacer size={24} />
         <Highlight {...defaultProps} theme={theme} code={exampleCode} language="jsx">
           {({ className, style, tokens, getLineProps, getTokenProps }) => (
             <Pre className={className} style={style}>
