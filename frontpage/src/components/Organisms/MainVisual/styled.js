@@ -10,7 +10,7 @@ export const Container = styled.div`
   max-width: 1000px;
   width: 96%;
   margin: auto;
-  padding: 120px 0;
+  padding: 120px 0 60px;;
 `
 
 export const Headline = styled.p`
