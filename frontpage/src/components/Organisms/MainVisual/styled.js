@@ -22,6 +22,7 @@ export const Headline = styled.p`
   line-height: 36px;
   margin-bottom: 20px;
   width: 540px;
+  position: relative;
 `
 
 export const MainImage = styled.img`
@@ -39,11 +40,13 @@ export const ButtonWrapper = styled.div`
   width: 210px;
   justify-content: space-between;
   margin-bottom: 20px;
+  position: relative;
 `
 
 export const RepositoryWrapper = styled.div`
   display: flex;
   align-items: center;
+  position: relative;
   & > span {
     margin-left: 8px;
   }

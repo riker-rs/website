@@ -1,12 +1,16 @@
 import React from 'react'
-import {Button} from './styled.js'
+import {StyledButton, StyledButtonLink} from './styled.js'
 
-const _Button = ({children, primary, secondary}) => {
+export const Button = ({children, primary, secondary}) => {
   return (
-    <Button primary={primary} secondary={secondary}>
+    <StyledButton primary={primary} secondary={secondary}>
       {children}
-    </Button>
+    </StyledButton>
   )
 }
 
-export default _Button
+export const ButtonLink = (props) => {
+  return (
+    <StyledButtonLink {...props} />
+  )
+}
