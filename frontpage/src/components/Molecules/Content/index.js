@@ -14,7 +14,7 @@ const Content = ({header, body}) => {
         <Spacer size={8} />
         <TypeBoldHeadingLevel2>{header}</TypeBoldHeadingLevel2>
       </ContentHeaderWrapper>
-      <Spacer size={24} />
+      <Spacer size={8} />
       <ContentBody>{body}</ContentBody>
     </Wrapper>
   )

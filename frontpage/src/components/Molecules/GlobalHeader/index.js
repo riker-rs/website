@@ -11,7 +11,7 @@ const GlobalHeader = () => {
         <HeaderBrandText>Riker</HeaderBrandText>
       </RikerWrapper>
       <nav>
-        <ExternalLink href="">Get Started</ExternalLink>
+        <ExternalLink href="/actors/">Get Started</ExternalLink>
       </nav>
     </Wrapper>
   )
