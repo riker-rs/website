@@ -1,5 +1,14 @@
 # Actors
 
+At the core of the Riker framework are four main components:
+
+- `ActorSystem` - Every Riker application has an `ActorSystem` that manages actor lifecycles
+- `Actor` - Rust types that implement the `Actor` trait so they may receive messages
+- `Props` - Each `Actor` requires a `Props` to describe how an `Actor` should be created
+- `ActorRef` - A lightweight type that is inexpensive to clone and can be used to interact with its underlying `Actor` such as sending messages to it
+
+Let's look at each of these and see how a simple application is created.
+
 ## Defining Actors
 Actors in Rust interact with each other by passing messages. To define an actor the system needs to understand how an actor should handle messages it receives. To do this, just implement the `Actor` trait on your data type and at a minimum provide a `receive` method.
 

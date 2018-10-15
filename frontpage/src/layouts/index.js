@@ -9,7 +9,7 @@ const Layout = ({ children, data }) => (
     <Helmet
       title={data.site.siteMetadata.title}
       meta={[
-        { name: 'description', content: 'Actor framework for Rust' },
+        { name: 'description', content: 'A Rust framework for building modern, concurrent and resilient applications' },
         { name: 'keywords', content: 'rust, actors, cqrs, event sourcing' },
       ]}
     />
