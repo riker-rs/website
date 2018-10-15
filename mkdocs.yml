@@ -4,6 +4,7 @@ repo_name: 'GitHub: riker-rs'
 repo_url: 'https://github.com/riker-rs/riker'
 
 pages:
+  - Home: frontpage.md
   - Actors: actors.md
   - Message Protocol: protocol.md
   - Actor Hierarchy: hierarchy.md
