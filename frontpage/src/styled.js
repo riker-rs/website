@@ -43,12 +43,16 @@ export const ContentsGrid = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  @media screen and (max-width: 480px) {
+    flex-direction: column;
+  }
 `
 
 export const Footer = styled.div`
   color: #fff;
   font-size: 12px;
   font-style: italic;
+  height: 40px;
   position: relative;
   p {
     position: absolute;

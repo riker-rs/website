@@ -21,7 +21,8 @@ export const Headline = styled.p`
   letter-spacing: 0.7px;
   line-height: 36px;
   margin-bottom: 20px;
-  width: 540px;
+  max-width: 540px;
+  width:90%;
   position: relative;
 `
 
