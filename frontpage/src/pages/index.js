@@ -21,8 +21,6 @@ import {TypeBodyLevel1Center, TypeBoldItalic, Copyright} from '../components/sty
 import {Spacer} from '../components/styledUtils'
 import Highlight, { defaultProps } from 'prism-react-renderer'
 import theme from 'prism-react-renderer/themes/nightOwl'
-import favicon from '../icon/favicon.png'
-import Helmet from 'react-helmet'
 
 const exampleCode = `struct MyActor;
 
@@ -48,12 +46,6 @@ a.tell("Hello actor!".to_string(), None);
 
 const IndexPage = () => (
   <Wrapper>
-
-    <Helmet
-      link={[
-          { rel: 'shortcut icon', type: 'image/png', href: `${favicon}` }
-      ]}
-    />
     <LayoutHeader>
       <GlobalHeader />
     </LayoutHeader>
