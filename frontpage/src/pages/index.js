@@ -19,7 +19,7 @@ import Content from '../components/Molecules/Content'
 import SectionHeader from '../components/Molecules/SectionHeader'
 import {TypeBodyLevel1Center, TypeBoldItalic, Copyright} from '../components/styledTypography'
 import {Spacer} from '../components/styledUtils'
-import Highlight, { defaultProps } from "prism-react-renderer"
+import Highlight, { defaultProps } from 'prism-react-renderer'
 import theme from 'prism-react-renderer/themes/nightOwl'
 
 const exampleCode = `struct MyActor;
