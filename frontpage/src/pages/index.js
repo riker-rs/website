@@ -68,7 +68,7 @@ const IndexPage = () => (
           />
           <Content
             header='General Purpose'
-            body='In the Cloud, Microservices, IoT, Drones, AI and more. Rust compiles to OS binaries, with no VM or GC overhead, and require only a few megabytes of memory.'
+            body='In the Cloud, Microservices, IoT, Drones, AI and more. Rust compiles to OS binaries, has no VM or GC overhead, and requires only a few megabytes of memory.'
           />
           <Content
             header='Modular Framework'
