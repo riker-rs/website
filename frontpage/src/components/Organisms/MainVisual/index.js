@@ -16,16 +16,6 @@ const MainVisual = () => {
           <ButtonLink href="/actors/" primary={"1"}>Get Started</ButtonLink>
           <ButtonLink href="/faq/">FAQ</ButtonLink>
         </ButtonWrapper>
-        <ExternalLink secondary href="https://github.com/riker-rs/riker/" target="_blank" rel="noopener noreferrer">
-          <RepositoryWrapper>
-            <GithubLogo size={18}/> <span>View on GitHub</span>
-          </RepositoryWrapper>
-        </ExternalLink>
-        <ExternalLink secondary href="https://gitter.im/riker-rs/Lobby" target="_blank" rel="noopener noreferrer">
-          <RepositoryWrapper>
-          <GitterLogo size={18}/> <span>Chat on Gitter</span>
-          </RepositoryWrapper>
-        </ExternalLink>
       </Container>
     </Wrapper>
   )
