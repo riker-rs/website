@@ -43,3 +43,16 @@ export const ButtonWrapper = styled.div`
   margin-bottom: 20px;
   position: relative;
 `
+
+export const ListBadges = styled.div`
+  display: flex;
+  margin-bottom: 1rem;
+  position:relative;
+  z-index: 1;
+  & > * {
+    margin-left: .5rem;
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+`
