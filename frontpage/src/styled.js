@@ -11,7 +11,7 @@ export const LayoutHeader = styled.div`
   right: 0;
   margin: auto;
   padding-top: .5rem;
-  max-width: 1200px;
+  max-width: 1100px;
   width: 96%;
 `
 

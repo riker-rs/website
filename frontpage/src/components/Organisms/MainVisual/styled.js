@@ -43,13 +43,3 @@ export const ButtonWrapper = styled.div`
   margin-bottom: 20px;
   position: relative;
 `
-
-export const RepositoryWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  position: relative;
-  & > span {
-    margin-left: 8px;
-  }
-`
-

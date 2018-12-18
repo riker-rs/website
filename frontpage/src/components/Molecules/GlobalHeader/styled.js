@@ -22,3 +22,15 @@ export const HeaderBrandText = styled.span`
   padding-left: .5rem;
   color: #fff;
 ` 
+
+export const Nav = styled.nav`
+  display: flex;
+  font-weight: bold;
+  > * {
+    margin-left: 1em;
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+`
+
