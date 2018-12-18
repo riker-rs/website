@@ -27,3 +27,7 @@ export const StyledButtonLink = styled.a`
   background: ${props => props.primary ? '#0EDC69' : 'transparent'};
   border: ${props => props.primary ? 'none' : '1px solid #fff'};
 `
+
+export const IconWrapper = styled.span``
+
+export const ButtonLabel = styled.span``

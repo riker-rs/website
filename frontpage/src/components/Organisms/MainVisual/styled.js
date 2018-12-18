@@ -44,12 +44,15 @@ export const ButtonWrapper = styled.div`
   position: relative;
 `
 
-export const RepositoryWrapper = styled.div`
+export const ListBadges = styled.div`
   display: flex;
-  align-items: center;
-  position: relative;
-  & > span {
-    margin-left: 8px;
+  margin-bottom: 1rem;
+  position:relative;
+  z-index: 1;
+  & > * {
+    margin-left: .5rem;
+    &:first-child {
+      margin-left: 0;
+    }
   }
 `
-

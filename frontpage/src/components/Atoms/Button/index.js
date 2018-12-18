@@ -1,5 +1,5 @@
 import React from 'react'
-import {StyledButton, StyledButtonLink} from './styled.js'
+import {StyledButton, StyledButtonLink, IconWrapper, ButtonLabel} from './styled.js'
 
 export const Button = ({children, primary, secondary}) => {
   return (
@@ -9,8 +9,12 @@ export const Button = ({children, primary, secondary}) => {
   )
 }
 
-export const ButtonLink = (props) => {
-  return (
-    <StyledButtonLink {...props} />
-  )
-}
+export const ButtonLink = (props) => (<StyledButtonLink {...props} />)
+  
+
+export const ButtonLinkWithIcon = ({icon, label}) => (
+  <ButtonLink>
+    <IconWrapper>{icon}</IconWrapper>
+    <ButtonLabel>{label}</ButtonLabel>
+  </ButtonLink>
+)
