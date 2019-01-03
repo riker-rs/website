@@ -103,7 +103,7 @@ const IndexPage = () => (
       <Spacer size={160} />
     </Section>
     <Footer>
-      <Copyright>&copy; Riker 2018</Copyright>
+      <Copyright>&copy; Riker 2019</Copyright>
     </Footer>
   </Wrapper>
 )

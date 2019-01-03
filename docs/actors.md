@@ -103,8 +103,8 @@ Let's go back to our `MyActor` and combine what we've seen so far in to a comple
 
 ```toml
 [dependencies]
-riker = "0.1.8"
-riker-default = "0.1.8"
+riker = "0.1.9"
+riker-default = "0.1.9"
 ```
 
 `main.rs`:
