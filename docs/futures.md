@@ -5,20 +5,14 @@ Riker can execute and drive futures to completion. In fact, internally actors ar
 `ActorSystem` and `Context` both have an `execute` method that accepts a future to run:
 
 ```rust
-let f = lazy(|_| {
-    thread::sleep(Duration::from_millis(2000));
-    println!("Future completed");
-    ok::<u32, ()>(10)
+let handle = system.execute(async move {
+    format!("some_val_{}", i)
 });
-
-let f = sys.execute(f);
-println!("Future is executing...");
-
-res = block_on(f).unwrap();
-println!("Result {}", res);
+        
+assert_eq!(block_on(handle).unwrap(), format!("some_val_{}", i));
 ```
 
-`sys.execute` schedules the future for execution and the dispatcher will drive it to completion utilizing the dispatcher's thread pool. `execute` returns a `DispatchHandle` future that can be used to extract the result.
+`sys.execute` schedules the future for execution and the dispatcher will drive it to completion utilizing the dispatcher's thread pool. `execute` returns a `futures::future::RemoteHandle` future that can be used to extract the result.
 
 !!! note
     The default Riker dispatcher uses the `Futures` crate's `ThreadPool` to run futures.
