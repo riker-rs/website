@@ -9,7 +9,7 @@ let handle = system.execute(async move {
     format!("some_val_{}", i)
 });
         
-assert_eq!(block_on(handle).unwrap(), format!("some_val_{}", i));
+assert_eq!(block_on(handle), format!("some_val_{}", i));
 ```
 
 `sys.execute` schedules the future for execution and the dispatcher will drive it to completion utilizing the dispatcher's thread pool. `execute` returns a `futures::future::RemoteHandle` future that can be used to extract the result.
