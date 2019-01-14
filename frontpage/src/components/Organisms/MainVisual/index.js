@@ -30,7 +30,7 @@ const MainVisual = () => {
         <MainImage src={Image} />
         <Headline>A Rust framework for building modern, concurrent and resilient applications</Headline>
         <ListBadges>
-          {badges.map(badge => <Badge url={badge.badgeUrl} src={badge.badgeSrc} />)}
+          {badges.map((badge, index) => <Badge key={index} url={badge.badgeUrl} src={badge.badgeSrc} />)}
         </ListBadges>
         <ButtonWrapper>
           <ButtonLink href="/actors/" primary={"1"}>Get Started</ButtonLink>
