@@ -1,5 +1,4 @@
 import React from 'react'
-import Link from 'gatsby-link'
 import {
   Wrapper,
   LayoutHeader,
@@ -7,9 +6,6 @@ import {
   SectionContainer,
   ContentsGrid,
   Footer,
-  TimeLineWrapper,
-  TimeLineBullet,
-  TimeLineBulletList,
   Pre,
   LineNo
 } from '../styled'
@@ -17,7 +13,7 @@ import GlobalHeader from '../components/Molecules/GlobalHeader'
 import MainVisual from '../components/Organisms/MainVisual'
 import Content from '../components/Molecules/Content'
 import SectionHeader from '../components/Molecules/SectionHeader'
-import {TypeBodyLevel1Center, TypeBoldItalic, Copyright} from '../components/styledTypography'
+import {Copyright} from '../components/styledTypography'
 import {Spacer} from '../components/styledUtils'
 import Highlight, { defaultProps } from 'prism-react-renderer'
 import theme from 'prism-react-renderer/themes/nightOwl'

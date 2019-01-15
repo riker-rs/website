@@ -1,6 +1,6 @@
 import React from 'react'
 import Bullet from '../../Atoms/Bullet'
-import {Wrapper, ContentHeaderWrapper, ContentHeader, ContentBody} from './styled'
+import {Wrapper, ContentHeaderWrapper, ContentBody} from './styled'
 import {IconWrapper, Spacer} from '../../styledUtils'
 import {TypeBoldHeadingLevel2} from '../../styledTypography'
 

@@ -14,10 +14,6 @@ export const ContentHeaderWrapper = styled.div`
   justify-content: start;
 `
 
-export const ContentHeader = styled.div`
-  
-`
-
 export const ContentBody = styled.div`
   padding-left: 40px;
 `
