@@ -4,7 +4,7 @@ import Image from './Bullet.png'
 const Bullet = () => {
   return (
     <div>
-      <img src={Image} />
+      <img src={Image} alt="" />
     </div>
   )
 }
