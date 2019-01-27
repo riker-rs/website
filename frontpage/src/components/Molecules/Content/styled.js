@@ -15,5 +15,5 @@ export const ContentHeaderWrapper = styled.div`
 `
 
 export const ContentBody = styled.div`
-  padding-left: 40px;
+  padding-left: 48px;
 `
