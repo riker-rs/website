@@ -1,10 +1,10 @@
 import React from 'react'
 import Image from './Bullet.png'
 
-const Bullet = () => {
+const Bullet = ({bulletSrc}) => {
   return (
     <div>
-      <img src={Image} alt="" />
+      <img src={bulletSrc || Image} />
     </div>
   )
 }
