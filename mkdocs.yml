@@ -8,7 +8,7 @@ pages:
   - Actors: actors.md
   - Message Protocol: protocol.md
   - Actor Hierarchy: hierarchy.md
-  - Fault Tolerence: supervision.md
+  - Fault Tolerance: supervision.md
   - Actor Selection: selection.md
   - Channels: channels.md
   - Message Scheduling: scheduling.md
@@ -27,10 +27,8 @@ theme:
   palette:
     primary: 'white'
     accent: 'white'
-  
+
 markdown_extensions:
   - admonition
   - codehilite
   - pymdownx.details
-
-
