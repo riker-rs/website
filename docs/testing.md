@@ -10,76 +10,86 @@ Here's an example of testing an actor restart:
 #[macro_use]
 extern crate riker_testkit;
 
-type TestProbe = ChannelProbe<(), ()>;
+use riker::actors::*;
+
+use riker_testkit::probe::{Probe, ProbeReceive};
+use riker_testkit::probe::channel::{probe, ChannelProbe};
 
 #[derive(Clone, Debug)]
-enum TestMsg {
-    Probe(TestProbe),
-    Panic,
+pub struct Add;
+
+#[derive(Clone, Debug)]
+pub struct TestProbe(ChannelProbe<(), ()>);
+
+#[actor(TestProbe, Add)]
+struct Counter {
+    probe: Option<TestProbe>,
+    count: u32,
 }
 
-impl Into<ActorMsg<TestMsg>> for TestMsg {
-    fn into(self) -> ActorMsg<TestMsg> {
-        ActorMsg::User(self)
+impl Counter {
+    fn actor() -> Counter {
+        Counter {
+            probe: None,
+            count: 0
+        }
     }
 }
 
-struct MyActor;
+impl Actor for Counter {
+    // we used the #[actor] attribute so CounterMsg is the Msg type
+    type Msg = CounterMsg;
+    type Evt = ();
 
-impl MyActor {
-    fn new() -> BoxActor<TestMsg> {
-        Box::new(MyActor)
+    fn recv(&mut self,
+                ctx: &Context<Self::Msg>,
+                msg: Self::Msg,
+                sender: Sender) {
+        self.receive(ctx, msg, sender);
     }
 }
 
-impl Actor for MyActor {
-    type Msg = TestMsg;
+impl Receive<TestProbe> for Counter {
+    type Msg = CounterMsg;
 
     fn receive(&mut self,
                 _ctx: &Context<Self::Msg>,
-                msg: Self::Msg,
-                _sender: Option<ActorRef<Self::Msg>>)
-    {
-        match msg {
-            TestMsg::Panic => {
-                // panic the actor to simulate failure
-                panic!("// TEST PANIC // TEST PANIC // TEST PANIC //");
-            }
-            TestMsg::Probe(probe) => {
-                // received probe
-                // let's emit () empty tuple back to listener
-                probe.event(());
-            }
-        };
+                msg: TestProbe,
+                _sender: Sender) {
+        self.probe = Some(msg)
+    }
+}
+
+impl Receive<Add> for Counter {
+    type Msg = CounterMsg;
+
+    fn receive(&mut self,
+                _ctx: &Context<Self::Msg>,
+                _msg: Add,
+                _sender: Sender) {
+        self.count += 1;
+        if self.count == 1_000_000 {
+            self.probe.as_ref().unwrap().0.event(())
+        }
     }
 }
 
 #[test]
-fn panic_actor() {
-    let model: DefaultModel<TestMsg> = DefaultModel::new();
-    let sys = ActorSystem::new(&model).unwrap();
+fn actor_tell() {
+    let sys = ActorSystem::new().unwrap();
 
-    let props = Props::new(Box::new(MyActor::new));
-    let actor = sys.actor_of(props, "my-actor").unwrap();
+    let props = Props::new(Box::new(Counter::actor));
+    let actor = sys.actor_of(props, "me").unwrap();
 
-    // Make the test actor panic
-    actor.tell(TestMsg::Panic, None);
+    let (probe, listen) = probe();
+    actor.tell(TestProbe(probe), None);
 
-    // Prepare a probe
-    let (probe, listen) = probe::<()>();
+    for _ in 0..1_000_000 {
+        actor.tell(Add, None);
+    }
 
-    // Send the probe to the panicked actor
-    // which would have been restarted
-    actor.tell(TestMsg::Probe(probe), None);
-
-    // Testkit provides a macro to assert the result
-    // that gets emmitted from the probe to the listener.
-    // Here we're expecting () empty tuple.
     p_assert_eq!(listen, ());
 }
 ```
 
-This test shows that our actor successfully restarts after it fails. It is able to continue receiving messages, in this case the probe. The macro `p_assert_eq!` waits (blocks) on the listener until a value is received from the probe.
-
-
-
+This test sends a test probe to the test actor, which is keeps and uses to signal back after one million test messages were received. The macro `p_assert_eq!` waits (blocks) on the listener until a value is received from the probe.

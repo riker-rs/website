@@ -1,21 +1,21 @@
 # Running Futures
 
-Riker can execute and drive futures to completion. In fact, internally actors are executed as futures by the dispatcher. This means Riker can run any future on the same dispatcher, alongside actors.
+Riker can execute and drive futures to completion. In fact, internally actors are executed as futures by the dispatcher. This means Riker can run any future on the same executor, alongside actors.
 
-`ActorSystem` and `Context` both have an `execute` method that accepts a future to run:
+`ActorSystem` and `Context` both have a `run` method that takes a future to run:
 
 ```rust
-let handle = system.execute(async move {
-    format!("some_val_{}", i)
+let handle = system.run(async move {
+    "someval".to_string()
 });
-        
-assert_eq!(block_on(handle), format!("some_val_{}", i));
+
+assert_eq!(block_on(handle), "someval".to_string());
 ```
 
-`sys.execute` schedules the future for execution and the dispatcher will drive it to completion utilizing the dispatcher's thread pool. `execute` returns a `futures::future::RemoteHandle` future that can be used to extract the result.
+`sys.run` schedules the future for execution it will drive it to completion utilizing the dispatcher's thread pool. `run` returns a `futures::future::RemoteHandle` future that can be used to extract the result.
 
 !!! note
-    The default Riker dispatcher uses the `Futures` crate's `ThreadPool` to run futures.
+    Riker executes futures using the `Futures` crate's `futures::executor::ThreadPool`.
 
 In the next section we'll see how to to test Riker applications.
 
