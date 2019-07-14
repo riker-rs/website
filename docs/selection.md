@@ -19,7 +19,7 @@ hga.try_tell("I've arrived safely".into(), None);
 
 `try_tell` is the method used to send messages since a selection is a collection of `BasicActorRef`s. Any message sent to an actor in the selection that rejects the message type will be dropped.
 
-While this example highlights how it's possible to message actors based on their path in practise it should be carefully considered. `ActorRef` (and even `BasicActorRef`) is almost always the better choice for actor interaction since messages are directly sent to the actor's mailbox without any preprocessing or cloning. However there are several use cases where `ActorSelection` makes sense:
+While this example highlights how it's possible to message actors based on their path in practice it should be carefully considered. `ActorRef` (and even `BasicActorRef`) is almost always the better choice for actor interaction since messages are directly sent to the actor's mailbox without any preprocessing or cloning. However there are several use cases where `ActorSelection` makes sense:
 
 - You know the path of an actor but due to design you don't have its `ActorRef`
 - You want to broadcast a message to all actors within a path

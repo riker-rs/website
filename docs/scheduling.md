@@ -74,7 +74,7 @@ let id = ctx.schedule(delay,
 ctx.cancel_schedule(id);
 ```
 
-Cancelling a schedule removes it from the timer and the message will no longer be sent.
+Canceling a schedule removes it from the timer and the message will no longer be sent.
 
 Some example use cases of message scheduling include: 
 

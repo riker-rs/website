@@ -13,7 +13,7 @@ riker
 └─ temp
 ```
 
-We can see that without starting any actors ourself there's already a number of actors running. At the base of the hierarchy is our application which by default is named `riker` unless a name was provided using `SystemBuilder`.
+We can see that without starting any actors ourselves, there's already a number of actors running. At the base of the hierarchy is our application which by default is named `riker` unless a name was provided using `SystemBuilder`.
 
 There's then three root actors, `user`, `system` and `temp`. These are guardian actors under which all other actors are created. Perhaps the most important of these is `user`, since most actors created as part of the application are created in this branch.
 
