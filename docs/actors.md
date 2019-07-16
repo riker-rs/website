@@ -1,6 +1,6 @@
 # Getting Started
 
-This guide will take you through the fundementals of the Riker Framework, starting with the basics of the Actor Model through to more advanced topics such as application resilience.
+This guide will take you through the fundamentals of the Riker Framework, starting with the basics of the Actor Model through to more advanced topics such as application resilience.
 
 If you're familiar with the Actor Model and have used other actor frameworks you will find Riker familair. In particular Riker has been inspired by Scala's [Akka](https://akka.io) and has taken some of the core concepts and terminology from that project.
 
@@ -24,7 +24,7 @@ Let's look at each of these and see how a simple application is created.
 
 ## Defining Actors
 
-An Actor is the fundamental unit of computation. Actors communicate only through messages in an asynchronous fashion. An actor can perform three distinct action based on the message it receive:
+An Actor is the fundamental unit of computation. Actors communicate only through messages in an asynchronous fashion. An actor can perform three distinct actions based on the message it receive:
 
 - send a finite number of messages to other actors
 - create a finite number of new actors
@@ -85,7 +85,7 @@ let my_actor = sys.actor_of(props, "my-actor");
 
 Every actor requires a `Props` that holds the actor's factory function, in this example `MyActor::new`, and any parameters required by that function. `Props` is then used with `actor_of` to create an instance of the actor. A name is also required so that we can look it up later if we need.
 
-Although this is just two lines of code a lot is happening behind the scenes. Actor lifecycles and state are managed by the system. When an actor starts it keeps the properies in case it needs it again to restart the actor if it fails. When an actor is created it gets its own mailbox for receiving messages and other interested actors are notified about the new actor joining the system.
+Although this is just two lines of code a lot is happening behind the scenes. Actor lifecycles and state are managed by the system. When an actor starts it keeps the properties in case it needs it again to restart the actor if it fails. When an actor is created it gets its own mailbox for receiving messages and other interested actors are notified about the new actor joining the system.
 
 ## Actor References
 
@@ -94,7 +94,7 @@ When an actor is started using `actor_of` the system returns a reference to the 
 `ActorRef` always refers to a specific instance of an actor. When two instances of the same `Actor` are started they're still considered separate actors, each with different `ActorRef`s.
 
 !!! note
-    `ActorRef`s are inexpensive and can be cloned (they implement `Clone`) without too much concern about resources. References can also be used in `Props` as a field in another actor's factory method, a pattern known as endowment. `ActorRef` is also `Send`, so it can be sent as a message to another actor.
+    `ActorRef`s are inexpensive and can be cloned (they implement `Clone`) without too much concern about resources. References can also be used in `Props` as a field in another actor's factory method, a pattern known as endowment. `ActorRef` can be sent as a message to another actor, a pattern known as introduction.
 
 ## Sending Messages
 
@@ -166,7 +166,7 @@ fn main() {
 }
 ```
 
-Here we've started the actor system and an instance of `MyActor`. Lastly we sent a message to the actor. You'll also notice we also provided a factory function `actor()` and props function `props()` as part of `MyActor`'s implementation.
+Here we've started the actor system and an instance of `MyActor`. Lastly, we sent a message to the actor. You'll notice we provided a factory function `actor()` and props function `props()` as part of `MyActor`'s implementation.
 
 To see the this example project click [here](https://github.com/riker-rs/examples/tree/master/basic).
 
@@ -177,9 +177,9 @@ To see the this example project click [here](https://github.com/riker-rs/example
 
 Riker provides certain guarantees when handling messages:
 
-- Message delivery is 'at-most-once'. A message will either fail to be delivered, or delivered one time. There is no repeat delivery of the same message.
-- An actor handles one message at any time
-- Messages are are stored in an actor's mailbox in order that they are received
+- Message delivery is 'at-most-once'. A message will either fail to be delivered, or be delivered one time. There is no repeat delivery of the same message.
+- An actor handles one message at any time.
+- Messages are are stored in an actor's mailbox in order that they are received.
 
 On this page you learned the basics of creating a Riker application using actors. Let's move on the next section to see are more comprehensive example using multiple message types:
 

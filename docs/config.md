@@ -28,7 +28,7 @@ myval = "five by five"
 
 By default Riker looks for `riker.toml` and `app.*` in the `config` directory relative to the current directory of execution.
 
-It's stardard practise to place the `config` directory in the root directory of your Rust application, i.e. on the same level as `src`. This way, `cargo run` and `cargo test` will use the files located in `config`.
+It's standard practice to place the `config` directory in the root directory of your Rust application, i.e. on the same level as `src`. This way, `cargo run` and `cargo test` will use the files located in `config`.
 
 Configuration file paths can be overridden using environment variables:
 

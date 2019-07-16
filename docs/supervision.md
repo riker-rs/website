@@ -1,6 +1,6 @@
 # Fault Tolerence
 
-Riker applications exhibit fault tolerent behavior through self-healing. This is achieved by supervision - each actor has a supervisor that is responsible for determining what to do if the actor panics. In Riker, an actor's parent is its supervisor. This 'parental supervision' is a natural fit since the actor system is a hierarchy.
+Riker applications exhibit fault tolerant behavior through self-healing. This is achieved by supervision - each actor has a supervisor that is responsible for determining what to do if the actor panics. In Riker, an actor's parent is its supervisor. This 'parental supervision' is a natural fit since the actor system is a hierarchy.
 
 When an actor fails we can't guarantee its state is not corrupted. Its parent has three choices (strategies):
 

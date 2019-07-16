@@ -112,7 +112,7 @@ sel.try_tell(1, None);
 
 ## Removal of Model
 
-`Riker 0.3` used the Model trait to customize the actor system. This was found to be cumbersome and unneccessary. Riker is now included in a single crate and an actor system can be created with a single line that will use built-in defaults. When customization is required a builder is available.
+`Riker 0.3` used the Model trait to customize the actor system. This was found to be cumbersome and unnecessary. Riker is now included in a single crate and an actor system can be created with a single line that will use built-in defaults. When customization is required a builder is available.
 
 ```rust
 // Typical pre-0.3 model:
@@ -150,4 +150,4 @@ Prior to `Riker 0.3` a main thread, or kernel, was used that would be tasked wit
 
 Event Sourcing has not be made available, yet, in `Riker 0.3`. This has been impacted by the message system redesign and we're looking at a redesign of what event sourcing should look like in `Riker 0.3`.
 
-We'd also like to point out that `Riker 0.3` has not yet gone through basic performance optimization, removing unneccessay clones, using references over values where possible, etc. In particular `ActorSystem` requires optimization.
+We'd also like to point out that `Riker 0.3` has not yet gone through basic performance optimization, removing unnecessary clones, using references over values where possible, etc. In particular `ActorSystem` requires optimization.
