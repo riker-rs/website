@@ -2,7 +2,7 @@
 
 This guide will take you through the fundamentals of the Riker Framework, starting with the basics of the Actor Model through to more advanced topics such as application resilience.
 
-If you're familiar with the Actor Model and have used other actor frameworks you will find Riker familair. In particular Riker has been inspired by Scala's [Akka](https://akka.io) and has taken some of the core concepts and terminology from that project.
+If you're familiar with the Actor Model and have used other actor frameworks you will find Riker familiar. In particular Riker has been inspired by Scala's [Akka](https://akka.io) and has taken some of the core concepts and terminology from that project.
 
 If you've never used actors in application development before this documentation aims to be concise and easy to understand. No prior knowledge of actors is necessary.
 
