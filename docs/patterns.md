@@ -54,7 +54,7 @@ Ask is particularly useful when you have part of an application that runs outsid
 Transform makes changing actor behavior based on its current state easier to reason about. Since actors maintain state, and indeed is a primary concern, being able to handle messages differently based on that state is important. The Transform pattern separates message handling by dedicating a receive function per state. This saves excessive `match`ing to handle several possible states, i.e. handling behavior is preempted at the time of state change instead of on each message receive.
 
 !!! info
-    If you're familair with Akka on the JVM, `transform` resembles `become`.
+    If you're familiar with Akka on the JVM, `transform` resembles `become`.
 
 Example:
 
