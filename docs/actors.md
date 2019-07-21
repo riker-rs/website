@@ -179,7 +179,7 @@ Riker provides certain guarantees when handling messages:
 
 - Message delivery is 'at-most-once'. A message will either fail to be delivered, or be delivered one time. There is no repeat delivery of the same message.
 - An actor handles one message at any time.
-- Messages are are stored in an actor's mailbox in order that they are received.
+- Messages are stored in an actor's mailbox in the order that they are received.
 
 On this page you learned the basics of creating a Riker application using actors. Let's move on the next section to see are more comprehensive example using multiple message types:
 
