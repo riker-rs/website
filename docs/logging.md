@@ -13,6 +13,7 @@ info!("My first log message!");
 The only requirement is importing the `Log` crate into your application.
 
 ## Base log level
+
 The base log level is the level at which the `Log` crate's macros determine whether to ignore a message or forward it to the logger module. This is configured in `riker.toml`:
 
 ```toml
