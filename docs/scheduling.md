@@ -3,6 +3,7 @@
 Riker's timer module provides scheduling features that allow messages to be sent after a given duration or at a specific time. Timer methods are exposed on both `ActorSystem` and `Context`.
 
 ## One-time scheduling
+
 There are two methods that provide one-time scheduling:
 
 - `schedule_once` schedules a message to be sent after a given delay.
