@@ -79,7 +79,7 @@ let sys = SystemBuilder::new()
 Once the actor system is started, we can begin to create actors:
 
 ```rust
-let props = Props::new(Box::new(MyActor::new));
+let props = Props::new(MyActor::new);
 let my_actor = sys.actor_of(props, "my-actor");
 ```
 
@@ -148,7 +148,7 @@ impl MyActor {
     }
 
     fn props() -> BoxActorProd<MyActor> {
-        Props::new(Box::new(MyActor::actor))
+        Props::new(MyActor::actor)
     }
 }
 
