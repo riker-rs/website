@@ -28,7 +28,7 @@ An Actor is the fundamental unit of computation. Actors communicate solely throu
 
 - send a finite number of messages to other actors
 - create a finite number of new actors
-- change its state or designate the behaviour to be used for the next message it receives
+- change its state or designate the behavior to be used for the next message it receives
 
 Actors interact with each other by passing messages. There is no assumed order to the above actions, and they could be carried out concurrently. Two messages that are sent concurrently can arrive in either order.
 
@@ -98,7 +98,7 @@ An `ActorRef` always refers to a specific instance of an actor. When two instanc
 
 ## Sending Messages
 
-Actors communicate only through sending and receiving messages. They are isolated and never expose their state or behaviour.
+Actors communicate only through sending and receiving messages. They are isolated and never expose their state or behavior.
 
 If we want to send a message to an actor, we use the `tell` method on the actor's `ActorRef`:
 
