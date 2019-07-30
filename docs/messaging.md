@@ -1,6 +1,6 @@
 # Multi-type Messaging
 
-In real world applications, actors will typically receive different message types and execute different behaviours based on the type received.
+In real world applications, actors will typically receive different message types and execute different behaviors based on the type received.
 
 So far you've seen a simple example where an actor's message type is defined in the `Actor::Msg` associated type. More specifically, this defines an actor's mailbox type. To allow an actor to receive multiple message types, Riker provides a `Receive<T>` trait and the `#[actor]` attribute.
 
