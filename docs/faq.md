@@ -24,7 +24,7 @@ Both Actors and Futures in general work to solve the challenges of concurrent so
 
 Futures allow software developers to write concurrent code in an almost single-threaded manner. Simple, short-lived workload processing that is non-blocking can be easily written. So Futures can be seen as building blocks for non-blocking application design.
 
-Actors on the other hand are used when state exists and must be maintained between cycles of when an actor is running and when it is idle. Actors are well suited for long running processes that can even span the lifetime of the application itself. Actors also form a hierachy, with parent and child actors, which communicate with each other via a message based API. Since Actors are aware of other Actors in the system they can heal each other when unexpected things happen, such as panics.
+Actors on the other hand are used when state exists and must be maintained between cycles of when an actor is running and when it is idle. Actors are well suited for long running processes that can even span the lifetime of the application itself. Actors also form a hierarchy, with parent and child actors, which communicate with each other via a message based API. Since Actors are aware of other Actors in the system they can heal each other when unexpected things happen, such as panics.
 
 Under the covers, Riker actors are Futures and run as Futures on the underlying thread pool.
 

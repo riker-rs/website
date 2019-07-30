@@ -5,26 +5,30 @@ The primary means to interact with an actor is through it's actor reference (`Ac
 For example, if an actor is known to live at `/user/comms/high_gain_1`, but we don't have the actor reference for this actor, we can perform a selection:
 
 ```rust
-let hga = ctx.selection("/user/comms/high_gain_1").unwrap();
+let hga = ctx.select("/user/comms/high_gain_1").unwrap();
 ```
 
-This will return an `ActorSelection`. In some ways an `ActorSelection` behaves like an `ActorRef` but with key distinctions. The most prominent similarity is that `ActorSelection` implements `Tell`, meaning that messages can be send to the selection, for example:
+This will return an `ActorSelection`. In some ways an `ActorSelection` behaves like an `ActorRef` but represents a collection of actors. When sending a message to a seclection all the actors in the selection that accept the sent message type will receive the message.
+
+To send messages to a selection:
 
 ```rust
-let hga = ctx.selection("/user/comms/high_gain_1").unwrap();
-hga.tell("I've arrived safely".into(), None);
+let hga = ctx.select("/user/comms/high_gain_1").unwrap();
+hga.try_tell("I've arrived safely".into(), None);
 ```
 
-While this example highlights how it's possible to message actors based on their path in practise it should be carefully considered. `ActorRef` is almost always the better choice for actor interaction since messages are directly sent to the actor's mailbox without any preprocessing or cloning. However there are several use cases where `ActorSelection` makes sense:
+`try_tell` is the method used to send messages since a selection is a collection of `BasicActorRef`s. Any message sent to an actor in the selection that rejects the message type will be dropped.
+
+While this example highlights how it's possible to message actors based on their path in practice it should be carefully considered. `ActorRef` (and even `BasicActorRef`) is almost always the better choice for actor interaction since messages are directly sent to the actor's mailbox without any preprocessing or cloning. However there are several use cases where `ActorSelection` makes sense:
 
 - You know the path of an actor but due to design you don't have its `ActorRef`
 - You want to broadcast a message to all actors within a path
 
-A key distinction of `ActorSelection` is that is can represent more than one actor. It is possible to select all actors under an actor path. It's possible for example to send the same message to all children of a specific actor.
+It is possible to select all actors under an actor path and send the same message the actors in the selection:
 
 ```rust
 let sel = ctx.selection("/user/home-control/lighting/*").unwrap();
-sel.tell(Protocol::Off, None);
+sel.try_tell(Protocol::Off, None);
 ```
 
 In this example an actor responsible for lighting in a home has a child actor for each individual light. If we want to turn off all lights a control message (`Protocol::Off`) could be sent to `/user/home-control/lighting/*`. Each child actor will receive the same message.

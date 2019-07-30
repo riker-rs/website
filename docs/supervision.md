@@ -1,6 +1,6 @@
-# Fault Tolerence
+# Fault Tolerance
 
-Riker applications exhibit fault tolerent behavior through self-healing. This is achieved by supervision - each actor has a supervisor that is responsible for determining what to do if the actor panics. In Riker, an actor's parent is its supervisor. This 'parental supervision' is a natural fit since the actor system is a hierarchy.
+Riker applications exhibit fault tolerant behavior through self-healing. This is achieved by supervision - each actor has a supervisor that is responsible for determining what to do if the actor panics. In Riker, an actor's parent is its supervisor. This 'parental supervision' is a natural fit since the actor system is a hierarchy.
 
 When an actor fails we can't guarantee its state is not corrupted. Its parent has three choices (strategies):
 
@@ -25,7 +25,7 @@ In this case, if a child fails it will choose to stop it.
 
 ## Mailboxes
 
-An actor has its own mailbox that messages get queued during message delivery. When a message is sent to an actor it is added to the actor's mailbox and the actor is then scheduled to run. If during handling of a message the actor fails (panics) messages can still continue to be sent to the actor since the mailbox is separate. This allows the supervisor to handle the failure without losing messages - a restarted actor will then continue handling the queued messages once it restarts.
+An actor has its own mailbox that messages are queued to during message delivery. When a message is sent to an actor it is added to the actor's mailbox and the actor is then scheduled to run. If during handling of a message the actor fails (panics) messages can still continue to be sent to the actor since the mailbox is separate. This allows the supervisor to handle the failure without losing messages - a restarted actor will then continue handling the queued messages once it restarts.
 
 An actor's mailbox continues to exist until its actor is stopped or the system is stopped.
 
@@ -79,9 +79,7 @@ When an actor is terminated all existing `ActorRef`s are invalidated. Messages s
 
 ## Supervisor Design
 
-Good supervisor design is key to designing resilient, fault tolerent systems. At the core of this is creating an actor hierarchy that matches message flow and dependency.
-
-TODO Provide examples of good supervisor design.
+Good supervisor design is key to designing resilient, fault tolerant systems. At the core of this is creating an actor hierarchy that matches message flow and dependency.
 
 Next we'll see how actor paths can be utilized to message actors without an actor reference and broadcast to entire segments of the actor hierarchy.
 

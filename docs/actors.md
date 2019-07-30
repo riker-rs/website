@@ -1,4 +1,17 @@
-# Actors
+# Getting Started
+
+This guide will take you through the fundamentals of the Riker Framework, starting with the basics of the Actor Model through to more advanced topics such as application resilience.
+
+If you're familiar with the Actor Model and have used other actor frameworks you will find Riker familair. In particular Riker has been inspired by Scala's [Akka](https://akka.io) and has taken some of the core concepts and terminology from that project.
+
+If you've never used actors in application development before this documentation aims to be concise and easy to understand. No prior knowledge of actors is necessary.
+
+We welcome and encourage contributions to this guide. Please feel free to create Github issues with feedback or create PRs with changes. This documentation's source lives at: [https://github.com/riker-rs/website](https://github.com/riker-rs/website).
+
+!!! note
+    Riker is pre-1.0 and as such the framework is evolving. You can expect some API level changes but we do strive to keep breaking changes to an absolute minimum. Between versions 0.1 to 0.2.3 there was only one minor API change, for example.
+
+## Actors
 
 The actor model is a conceptual model to deal with concurrent computation<sup>[1]</sup>. At the core of the Riker framework are four main components:
 
@@ -11,7 +24,7 @@ Let's look at each of these and see how a simple application is created.
 
 ## Defining Actors
 
-An Actor is the fundamental unit of computation. Actors communicate only through messages in an asynchronous fashion. An actor can perform three distinct action based on the message it receive:
+An Actor is the fundamental unit of computation. Actors communicate only through messages in an asynchronous fashion. An actor can perform three distinct actions based on the message it receive:
 
 - send a finite number of messages to other actors
 - create a finite number of new actors
@@ -19,7 +32,7 @@ An Actor is the fundamental unit of computation. Actors communicate only through
 
 Actors interact with each other by passing messages. There is no assumed order to the above actions and they could be carried out concurrently. Two messages that are sent concurrently can arrive in either order.
 
-To define an actor the system needs to understand how an actor should handle messages it receives. To do this, just implement the `Actor` trait on your data type and at a minimum provide a `receive` method.
+To define an actor the system needs to understand how an actor should handle messages it receives. To do this, implement the `Actor` trait on your data type and at a minimum provide a `recv` method.
 
 Here's the Rust code:
 
@@ -29,43 +42,50 @@ struct MyActor;
 impl Actor for MyActor {
     type Msg = String;
 
-    fn receive(&mut self,
-                ctx: &Context<Self::Msg>,
-                msg: Self::Msg,
-                sender: Option<ActorRef<Self::Msg>>) {
+    fn recv(&mut self,
+            ctx: &Context<String>,
+            msg: String,
+            sender: Sender) {
 
         println!("received {}", msg);
     }
 }
 ```
 
-In this example a simple struct `MyActor` implements the `Actor` trait. When a message is sent to `MyActor` it is scheduled by the system for immediate execution. The `receive` function is invoked and the message is printed to stdout.
+In this example a simple struct `MyActor` implements the `Actor` trait. When a message is sent to `MyActor` it is scheduled by the system for immediate execution. The `recv` function is invoked and the message is printed to stdout.
 
 ## Creating Actors
 
-Every application has an `ActorSystem`. The actor system provides actor management and the runtime to execute actors when they're sent messages. It also provides essential services such as starting actors and exposing system services. 
+Every application has an `ActorSystem`. The actor system provides actor management and the runtime to execute actors when they're sent messages. It also provides essential services such as starting actors and exposing system services.
 
 To start the actor system:
 
 ```rust
-let model: DefaultModel<String> = DefaultModel::new();
-let sys = ActorSystem::new(&model).unwrap();
+let sys = ActorSystem::new().unwrap();
 ```
 
-Here we see that the actor is started using `ActorSystem::new`. But what is this model? The model allows us to configure the message type used in our application and configure which modules to use for core services. We'll revisit the model in detail later in this documentation.
+Here we see that the actor is started using `ActorSystem::new`.
+Once we've started the actor system we're ready to create some actors.
 
-Once we've started the actor system we're ready to start up some actors.
-
-To start an actor:
+We can also configure the system with a custom name using the `SystemBuilder`:
 
 ```rust
-let props = Props::new(Box::new(MyActor::new));
+let sys = SystemBuilder::new()
+                        .name("my-app")
+                        .create()
+                        .unwrap();
+```
+
+Once the actor system is started we can begin to create actors:
+
+```rust
+let props = Props::new(MyActor::new);
 let my_actor = sys.actor_of(props, "my-actor");
 ```
 
-Every actor requires a `Props` that wraps the actor's factory method, in this example `MyActor::new`, and any parameters required by that method. `Props` is then used with `actor_of` to create an instance of the actor. A name is also required so that we can look it up later if we need to.
+Every actor requires a `Props` that holds the actor's factory function, in this example `MyActor::new`, and any parameters required by that function. `Props` is then used with `actor_of` to create an instance of the actor. A name is also required so that we can look it up later if we need.
 
-Although this is just two lines of code a lot is happening behind the scenes. Actor lifecycles and state are managed by the system. When an actor starts it keeps the properies in case it needs it again to restart the actor if it fails. When an actor is created it gets its own mailbox for receiving messages and other interested actors are notified about the new actor joining the system.
+Although this is just two lines of code a lot is happening behind the scenes. Actor lifecycles and state are managed by the system. When an actor starts it keeps the properties in case it needs it again to restart the actor if it fails. When an actor is created it gets its own mailbox for receiving messages and other interested actors are notified about the new actor joining the system.
 
 ## Actor References
 
@@ -74,26 +94,20 @@ When an actor is started using `actor_of` the system returns a reference to the 
 `ActorRef` always refers to a specific instance of an actor. When two instances of the same `Actor` are started they're still considered separate actors, each with different `ActorRef`s.
 
 !!! note
-    `ActorRef`s are inexpensive and can be cloned (they implement `Clone`) without too much concern about resources. References can also be used in `Props` as a field in another actor's factory method, a pattern known as endowment. `ActorRef` is also `Send`, so it can be sent as a message to another actor.
+    `ActorRef`s are inexpensive and can be cloned (they implement `Clone`) without too much concern about resources. References can also be used in `Props` as a field in another actor's factory method, a pattern known as endowment. `ActorRef` can be sent as a message to another actor, a pattern known as introduction.
 
 ## Sending Messages
 
-Actors can communicate only through messages. They are isolated. They can never expose their state or behavior.
+Actors communicate only through sending and receiving messages. They are isolated and never expose their state or behavior.
 
-If we want to send an actor a message we use the `tell` method on the actor's `ActorRef`:
+If we want to send a message to an actor we use the `tell` method on the actor's `ActorRef`:
 
 ```rust
 let my_actor = sys.actor_of(props, "my-actor");
-myactor.tell("Hello my actor!".into(), None);
+my_actor.tell("Hello my actor!".to_string(), None);
 ```
 
-Here we've sent a message of type `String` to our `MyActor` actor. The second parameter let's us specify a sender as an `Option<ActorRef>`. Since we're sending the message from `main` and not from an actor's `receive` we're setting the sender as `None`.
-
-Riker provides certain guarantees when handling messages:
-
-- Message delivery is 'at-most-once'. A message will either fail to be delivered, or delivered one time. There is no repeat delivery of the same message.
-- An actor handles one message at any time
-- Messages are stored in an actor's mailbox in order that they are received
+Here we've sent a message of type `String` to our `MyActor` actor. The second parameter let's us specify a sender as an `Option<BasicActorRef>` (type alias `Sender`). Since we're sending the message from `main` and not from an actor we're setting the sender as `None`.
 
 ## Example
 
@@ -103,21 +117,14 @@ Let's go back to our `MyActor` and combine what we've seen so far in to a comple
 
 ```toml
 [dependencies]
-riker = "0.2.2"
-riker-default = "0.2.2"
+riker = "0.3"
 ```
 
 `main.rs`:
 
 ```rust
-extern crate riker;
-extern crate riker_default;
-#[macro_use]
-extern crate log;
-
 use std::time::Duration;
 use riker::actors::*;
-use riker_default::DefaultModel;
 
 struct MyActor;
 
@@ -125,10 +132,10 @@ struct MyActor;
 impl Actor for MyActor {
     type Msg = String;
 
-    fn receive(&mut self,
-                _ctx: &Context<Self::Msg>,
-                msg: Self::Msg,
-                _sender: Option<ActorRef<Self::Msg>>) {
+    fn recv(&mut self,
+            _ctx: &Context<String>,
+            msg: String,
+            _sender: Sender) {
 
         debug!("Received: {}", msg);
     }
@@ -136,38 +143,46 @@ impl Actor for MyActor {
 
 // provide factory and props functions
 impl MyActor {
-    fn actor() -> BoxActor<String> {
-        Box::new(MyActor)
+    fn actor() -> Self {
+        MyActor
     }
 
-    fn props() -> BoxActorProd<String> {
-        Props::new(Box::new(MyActor::actor))
+    fn props() -> BoxActorProd<MyActor> {
+        Props::new(MyActor::actor)
     }
 }
 
 // start the system and create an actor
 fn main() {
-    let model: DefaultModel<String> = DefaultModel::new();
-    let sys = ActorSystem::new(&model).unwrap();
+    let sys = ActorSystem::new().unwrap();
 
     let props = MyActor::props();
     let my_actor = sys.actor_of(props, "my-actor").unwrap();
 
     my_actor.tell("Hello my actor!".to_string(), None);
 
+    // force main to wait before exiting program
     std::thread::sleep(Duration::from_millis(500));
 }
 ```
 
-Here we've started the actor system and an instance of `MyActor`. Lastly we sent a message to the actor. You'll also notice we also provided a factory function `actor()` and props function `props()` as part of `MyActor`'s implementation.
+Here we've started the actor system and an instance of `MyActor`. Lastly, we sent a message to the actor. You'll notice we provided a factory function `actor()` and props function `props()` as part of `MyActor`'s implementation.
 
 To see the this example project click [here](https://github.com/riker-rs/examples/tree/master/basic).
 
 !!! note
     If an actor's factory method requires parameters you can use `Props::new_args`. See the Rustdocs for an example.
 
-On this page you learned the basics of creating a Riker application using actors. Let's move on the next section to see how to use your own message types:
+## Message Guarantees
 
-[Configure a message protocol](protocol)
+Riker provides certain guarantees when handling messages:
+
+- Message delivery is 'at-most-once'. A message will either fail to be delivered, or be delivered one time. There is no repeat delivery of the same message.
+- An actor handles one message at any time.
+- Messages are are stored in an actor's mailbox in order that they are received.
+
+On this page you learned the basics of creating a Riker application using actors. Let's move on the next section to see are more comprehensive example using multiple message types:
+
+[Sending multiple message types](messaging)
 
 [1]: https://en.wikipedia.org/wiki/Actor_model

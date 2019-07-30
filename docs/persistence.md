@@ -10,7 +10,7 @@ Since a persistent actor maintains its state in memory it's not necessary to con
 
 Event sourcing simplifies data storage since events are typically serialized objects that can be persisted to a single column or field in a database. Other non-database storage methods can also be leveraged, such as persistent queues or transaction logs. The complexities of data querying, such as database schema design and indexes aren't pertinent to event sourcing. In addition, since data structure is simplified migration between data storage solutions is made easier.
 
-An additional added value is that you get inherent auditing through the immutable nature of event sourcing - every event is recorded and remains in pertuity.
+An additional added value is that you get inherent auditing through the immutable nature of event sourcing - every event is recorded and remains in perpetuity.
 
 ## Enabling Persistence
 
@@ -157,7 +157,7 @@ An implementation of `EventStore` simply needs to provide an instance of `Self` 
 
 ## CQRS
 
-Command Query Responsibility Separation (CQRS) builds of top of event sourcing to provide a more structured approach to persistence. Event sourcing alone works well for restoring individual actor state in an actor system with a fixed number of actors. This could be taken further so that data entities can be modelled as actors. For example, an entity could be a User, Account, Post, Transaction, Order, etc, where every instance is represented by its own actor instance.
+Command Query Responsibility Separation (CQRS) builds of top of event sourcing to provide a more structured approach to persistence. Event sourcing alone works well for restoring individual actor state in an actor system with a fixed number of actors. This could be taken further so that data entities can be modeled as actors. For example, an entity could be a User, Account, Post, Transaction, Order, etc, where every instance is represented by its own actor instance.
 
 To make changes to an entity commands are sent to the actor representing that entity. For example, to change the password of a `User` entity an `UpdatePasswordCmd` can be sent, or to disable the user a `DisableUserCmd` can be sent. When an actor receives a command it validates it and then emits an event that will be persisted and applied:
 

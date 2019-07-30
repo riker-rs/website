@@ -3,6 +3,7 @@
 Riker's timer module provides scheduling features that allow messages to be sent after a given duration or at a specific time. Timer methods are exposed on both `ActorSystem` and `Context`.
 
 ## One-time scheduling
+
 There are two methods that provide one-time scheduling:
 
 - `schedule_once` schedules a message to be sent after a given delay.
@@ -19,6 +20,7 @@ ctx.schedule_once(delay,
                 None,
                 "that's one small step for man".into());
 ```
+
 Here a message is scheduled to be sent to an actor after 20 seconds.
 
 ```rust
@@ -33,6 +35,7 @@ ctx.schedule_at_time(time,
 Here a message is scheduled to be sent at the specific time `time`.
 
 ## Repeat scheduling
+
 Messages can be scheduled to be repeatedly sent at specific intervals:
 
 - `schedule` method schedules a message to be repeatedly sent at a given interval.
@@ -50,12 +53,14 @@ ctx.schedule(delay,
             None,
             "a scheduled msg".into());
 ```
+
 Here a message is scheduled to be repeated every 500 milliseconds. There is also a 100 millisecond initial delay, i.e. the duration before repeating of the message begins.
 
 !!! note
     Riker's default timer module is not persistent meaning that any scheduling is lost when an application is stopped. It's optimized for short dated durations from a few milliseconds to 48 hours, or your average time between deployments.
 
 ## Cancelling
+
 When scheduling a message a schedule ID is returned which can be used at a later time to cancel the schedule.
 
 Example:
@@ -69,7 +74,8 @@ let id = ctx.schedule(delay,
 
 ctx.cancel_schedule(id);
 ```
-Cancelling a schedule removes it from the timer and the message will no longer be sent.
+
+Canceling a schedule removes it from the timer and the message will no longer be sent.
 
 Some example use cases of message scheduling include: 
 
@@ -80,6 +86,10 @@ Some example use cases of message scheduling include:
 
 Message scheduling is a core feature of concurrent systems and can drive applications to complete their objectives.
 
-Next we'll look at persisting actor state, key to building scalable, data driven applications.
+We've covered the basics of the Riker Framework. Other topics include:
 
-[Persisting state](persistence)
+[Configuration](config)
+
+[Running Futures](futures)
+
+[Logging](logging)
