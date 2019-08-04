@@ -1,8 +1,8 @@
 # Multi-type Messaging
 
-In real world applications actors will typically receive different message types and execute different behavior based on the type received.
+In real world applications, actors will typically receive different message types and execute different behaviors based on the type received.
 
-So far you've seen a simple examples where an actor's message type is defined in the `Actor::Msg` associated type. More specifically this defines an actor's mailbox type. To allow an actor to receive multiple message types Riker provides a `Receive<T>` trait and the `#[actor]` attribute.
+So far you've seen a simple example where an actor's message type is defined in the `Actor::Msg` associated type. More specifically, this defines an actor's mailbox type. To allow an actor to receive multiple message types, Riker provides a `Receive<T>` trait and the `#[actor]` attribute.
 
 Let's see how these are used:
 
@@ -94,13 +94,13 @@ fn main {
 }
 ```
 
-In this example we've used `#actor[Add, Sub, Print]` to set up the actor to receive `Add`, `Sub` and `Print` types. For each of these the `Receive<T>` trait is implemented on the actor, defining how each message should be handled.
+In this example, we've used `#actor[Add, Sub, Print]` to set up the actor to receive `Add`, `Sub` and `Print` types. For each of these, the `Receive<T>` trait is implemented on the actor, defining how each message should be handled.
 
 !!! note
-    When using the `#[actor()]` attribute the actor's `Msg` associated type should be set to '[DataType]Msg'. E.g. if an actor is a struct named `MyActor` then `Actor::Msg` associated type will be `MyActorMsg`.
+    When using the `#[actor()]` attribute, the actor's `Msg` associated type should be set to '[DataType]Msg'. E.g. if an actor is a struct named `MyActor`, then the `Actor::Msg` associated type will be `MyActorMsg`.
 
-By utilizing `Receive<T>` and `#[actor]` complex message handling can be defined clearly and concisely. For more advanced messaging examples see [Advanced Messaging](advanced).
+By utilizing `Receive<T>` and `#[actor]`, complex message handling can be defined clearly and concisely. For more advanced messaging examples see [Advanced Messaging](advanced).
 
-In the next section we'll explore the relationship between actors and how actors form an hierarchy.
+In the next section, we'll explore the relationship between actors and how actors form a hierarchy.
 
 [Actor Hierarchy](hierarchy)
