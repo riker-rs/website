@@ -68,4 +68,4 @@ Since the new actor was started using `my-actor`'s context it is added to the hi
 
 Let's move on the next section where we'll look at how the actor hierarchy is used in supervision to build resilient, self healing applications.
 
-[Actor supervision](supervision.md)
+[Fault Tolerance](supervision.md)
