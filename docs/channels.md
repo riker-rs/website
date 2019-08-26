@@ -20,7 +20,7 @@ In the above example we created a channel that publishes `PowerStatus` messages,
 #[actor(PowerStatus)]
 struct GpsActor;
 
-#[actor(Power)]
+#[actor(PowerStatus)]
 struct NavigationActor;
 
 ...
