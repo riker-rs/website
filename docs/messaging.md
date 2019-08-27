@@ -62,7 +62,7 @@ impl Receive<Sub> for Counter {
 
     fn receive(&mut self,
                 _ctx: &Context<Self::Msg>,
-                _msg: Add,
+                _msg: Sub,
                 _sender: Sender) {
         self.count -= 1;
     }
@@ -73,7 +73,7 @@ impl Receive<Print> for Counter {
 
     fn receive(&mut self,
                 _ctx: &Context<Self::Msg>,
-                _msg: Add,
+                _msg: Print,
                 _sender: Sender) {
         println!("Total counter value: {}", self.count);
     }
