@@ -137,7 +137,7 @@ impl Actor for MyActor {
             msg: String,
             _sender: Sender) {
 
-        debug!("Received: {}", msg);
+        println!("Received: {}", msg);
     }
 }
 
