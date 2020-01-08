@@ -79,7 +79,7 @@ impl Receive<Print> for Counter {
     }
 }
 
-fn main {
+fn main() {
     let sys = ActorSystem::new().unwrap();
 
     let props = Props::new(Counter::actor);
