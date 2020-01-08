@@ -8,7 +8,7 @@ For example, if an actor is known to live at `/user/comms/high_gain_1`, but we d
 let hga = ctx.select("/user/comms/high_gain_1").unwrap();
 ```
 
-This will return an `ActorSelection`. In some ways an `ActorSelection` behaves like an `ActorRef` but represents a collection of actors. When sending a message to a seclection all the actors in the selection that accept the sent message type will receive the message.
+This will return an `ActorSelection`. In some ways an `ActorSelection` behaves like an `ActorRef` but represents a collection of actors. When sending a message to a selection all the actors in the selection that accept the sent message type will receive the message.
 
 To send messages to a selection:
 
