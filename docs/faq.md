@@ -20,7 +20,7 @@ Riker is inspired by [Akka](https://akka.io/), the JVM's popular Actor Model imp
 
 **How do actors compare to Futures?**
 
-Both Actors and Futures in general work to solve the challenges of concurrent software design. However they are complimentary since they are solving different issues.
+Both Actors and Futures in general work to solve the challenges of concurrent software design. However they are complementary since they are solving different issues.
 
 Futures allow software developers to write concurrent code in an almost single-threaded manner. Simple, short-lived workload processing that is non-blocking can be easily written. So Futures can be seen as building blocks for non-blocking application design.
 
