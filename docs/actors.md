@@ -17,7 +17,7 @@ The actor model is a conceptual model to deal with concurrent computation<sup>[1
 
 - `ActorSystem` - Every Riker application has an `ActorSystem` that manages actor lifecycles
 - `Actor` - Rust types that implement the `Actor` trait so they may receive messages
-- `Props` - Each `Actor` requires a `Props` to describe how an `Actor` should be created
+- `Props` - A configuration object that is `Send` and can be used when creating new actors.
 - `ActorRef` - A lightweight type that is inexpensive to clone and can be used to interact with its underlying `Actor`, such as sending messages to it
 
 Let's look at each of these and see how a simple application is created.
@@ -79,17 +79,16 @@ let sys = SystemBuilder::new()
 Once the actor system is started, we can begin to create actors:
 
 ```rust
-let props = Props::new(MyActor::new);
-let my_actor = sys.actor_of(props, "my-actor");
+let my_actor = sys.actor_of::<MyActor>("my-actor").unwrap();
 ```
 
-Every actor requires a `Props` that holds the actor's factory function, in this example `MyActor::new`, and any parameters required by that function. `Props` is then used with `actor_of` to create an instance of the actor. A name is also required so that we can look it up later if we need.
+Every actor has a name that is required to be unique among its singlings (those actors sharing the same parent actor). A name is also required so that we can interact with the actor using its actor path.
 
-Although this is just two lines of code, a lot is happening behind the scenes. Actor lifecycles and state are managed by the system. When an actor starts, it keeps the properties in case it needs it again to restart the actor if it fails. When an actor is created, it gets its own mailbox for receiving messages and other interested actors are notified about the new actor joining the system.
+Although this is just a single line of code, a lot is happening behind the scenes. Actor lifecycles and state are managed by the system. When an actor starts, it keeps the properties in case it needs to restart the actor if it fails. When an actor is created, it gets its own mailbox for receiving messages and other interested actors are notified about the new actor joining the system.
 
 ## Actor References
 
-When an actor is started using `actor_of`, the system returns a reference to the actor, an `ActorRef`. The actual actor instance remains inaccessible directly, its lifecycle being managed and protected by the system. In Rust terms, the system has and always maintains 'ownership' of the actor instance. When you're interacting with actors, you're actually interacting with the actor's `ActorRef`! This is a core concept of the actor model.
+When an actor is started using variants of `actor_of`, the system returns a reference to the actor, an `ActorRef`. The actual actor instance remains inaccessible directly, its lifecycle being managed and protected by the system. In Rust terms, the system has and always maintains 'ownership' of the actor instance. When you're interacting with actors, you're actually interacting with the actor's `ActorRef`! This is a core concept of the actor model.
 
 An `ActorRef` always refers to a specific instance of an actor. When two instances of the same `Actor` are started, they're still considered separate actors, each with different `ActorRef`s.
 
@@ -103,7 +102,7 @@ Actors communicate only through sending and receiving messages. They are isolate
 If we want to send a message to an actor, we use the `tell` method on the actor's `ActorRef`:
 
 ```rust
-let my_actor = sys.actor_of(props, "my-actor");
+let my_actor = sys.actor_of::<MyActor>("my-actor").unwrap();
 my_actor.tell("Hello my actor!".to_string(), None);
 ```
 
@@ -117,7 +116,7 @@ Let's go back to our `MyActor` and combine what we've seen so far into a complet
 
 ```toml
 [dependencies]
-riker = "0.3"
+riker = "0.4"
 ```
 
 `main.rs`:
@@ -141,23 +140,11 @@ impl Actor for MyActor {
     }
 }
 
-// provide factory and props functions
-impl MyActor {
-    fn actor() -> Self {
-        MyActor
-    }
-
-    fn props() -> BoxActorProd<MyActor> {
-        Props::new(MyActor::actor)
-    }
-}
-
 // start the system and create an actor
 fn main() {
     let sys = ActorSystem::new().unwrap();
 
-    let props = MyActor::props();
-    let my_actor = sys.actor_of(props, "my-actor").unwrap();
+    let my_actor = sys.actor_of("my-actor").unwrap();
 
     my_actor.tell("Hello my actor!".to_string(), None);
 
@@ -166,12 +153,75 @@ fn main() {
 }
 ```
 
-Here, we've started the actor system and an instance of `MyActor`. Then, we sent a message to the actor. You'll notice we provided a factory function `actor()` and props function `props()` as part of `MyActor`'s implementation.
+Here, we've started the actor system and an instance of `MyActor`. Then, we sent a message to the actor.
 
 To explore this example project, click [here](https://github.com/riker-rs/examples/tree/master/basic).
 
-!!! note
-    If an actor's factory method requires parameters, you can use `Props::new_args`. See the Rustdocs for an example.
+## Actor Parameters
+
+So far we've seen simple actors that have no constuctor and arguments. Actors can support argument passing by implmenting the `ActorFactoryArgs` trait:
+
+```rust
+struct Drone {
+    battery_mAh: u32,
+    max_range: Option<u32>,
+}
+
+// single argument
+impl ActorFactoryArgs<u32> for Drone {
+    fn create_args(battery_mAh: u32) -> Self {
+        Drone {
+            battery_mAh,
+            max_range: None
+        }
+    }
+}
+
+// multiple arguments - using tuple
+impl ActorFactoryArgs<(u32, u32)> for Drone {
+    fn create_args((battery_mAh, max_range): (u32, u32)) -> Self {
+        Drone {
+            battery_mAh,
+            max_range: Some(max_range)
+        }
+    }
+}
+
+...
+
+let d1 = sys.actor_of_args::<Drone, _>("drone-1", 100_000).unwrap();
+let d2 = sys.actor_of_args::<Drone, _>("drone-2", (200_000, 50)).unwrap();
+```
+
+## Props
+
+In systems that have multi-level actor hierarchies, actor parameters can be encapsulated into a configuration object `Props`. This allows actor configuration and actor starting to be decoupled. Configuration can be done once and shared with multiple actor starting sites. It also enables common actor patterns.
+
+```rust
+struct ClientWebhookManager {
+    customer: Uuid,
+    max_retries: u32,
+}
+
+impl ActorFactoryArgs<(Uuid, u32)> for ClientWebhookManager {
+    fn create_args((customer, max_retries): (Uuid, u32)) -> Self {
+        ClientWebhookManager {
+            customer,
+            max_retries
+        }
+    }
+}
+
+...
+// create props, `Clone` and `Send` to anywhere that needs to start
+// the respective actor at any time
+let props = Props::new_args::<ClientWebhookManager, _>((cid, 3));
+
+// use props to start actor
+let w1 = sys.actor_of_props("manager-1", props.clone()).unwrap();
+let w2 = sys.actor_of_props("manager-2", props).unwrap();
+
+```
 
 ## Message Guarantees
 
