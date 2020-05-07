@@ -17,7 +17,7 @@ The actor model is a conceptual model to deal with concurrent computation<sup>[1
 
 - `ActorSystem` - Every Riker application has an `ActorSystem` that manages actor lifecycles
 - `Actor` - Rust types that implement the `Actor` trait so they may receive messages
-- `Props` - A configuration object that is `Send` and can be used when creating new actors.
+- `Props` - A configuration object that is `Send` and can be used when creating new actors
 - `ActorRef` - A lightweight type that is inexpensive to clone and can be used to interact with its underlying `Actor`, such as sending messages to it
 
 Let's look at each of these and see how a simple application is created.
@@ -144,7 +144,7 @@ impl Actor for MyActor {
 fn main() {
     let sys = ActorSystem::new().unwrap();
 
-    let my_actor = sys.actor_of("my-actor").unwrap();
+    let my_actor = sys.actor_of::<MyActor>("my-actor").unwrap();
 
     my_actor.tell("Hello my actor!".to_string(), None);
 
