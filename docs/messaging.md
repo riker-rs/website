@@ -24,14 +24,6 @@ struct Counter {
     count: u32,
 }
 
-impl Counter {
-    fn actor() -> Counter {
-        Counter {
-            count: 0
-        }
-    }
-}
-
 impl Actor for Counter {
     // we used the #[actor] attribute so CounterMsg is the Msg type
     type Msg = CounterMsg;
@@ -82,8 +74,8 @@ impl Receive<Print> for Counter {
 fn main {
     let sys = ActorSystem::new().unwrap();
 
-    let props = Props::new(Counter::actor);
-    let actor = sys.actor_of(props, "counter").unwrap();
+    let props = Props::new::<Counter>();
+    let actor = sys.actor_of_props(props, "counter").unwrap();
     actor.tell(Add, None);
     actor.tell(Add, None);
     actor.tell(Sub, None);
