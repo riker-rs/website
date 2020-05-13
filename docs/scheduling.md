@@ -13,7 +13,7 @@ Examples:
 
 ```rust
 let delay = Duration::from_secs(1);
-let actor = ctx.actor_of(MyActor::props(), "my-actor").unwrap();
+let actor = ctx.actor_of::<MyActor>("my-actor").unwrap();
 
 ctx.schedule_once(delay,
                 actor,
@@ -25,7 +25,7 @@ Here a message is scheduled to be sent to an actor after 20 seconds.
 
 ```rust
 let time = SystemTime::now();
-let actor = ctx.actor_of(MyActor::props(), "my-actor").unwrap();
+let actor = ctx.actor_of::<MyActor>("my-actor").unwrap();
 
 ctx.schedule_at_time(time,
                     actor,
@@ -45,7 +45,7 @@ Example:
 ```rust
 let delay = Duration::from_millis(100);
 let iterv = Duration::from_millis(500);
-let actor = ctx.actor_of(MyActor::props(), "my-actor").unwrap();
+let actor = ctx.actor_of::<MyActor>("my-actor").unwrap();
 
 ctx.schedule(delay,
             interv,

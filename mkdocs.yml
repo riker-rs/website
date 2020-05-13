@@ -18,7 +18,6 @@ pages:
   - Testing: testing.md
   - Patterns: patterns.md
   - FAQ: faq.md
-  - Riker 0.3: riker03.md
 
 theme:
   name: 'material'

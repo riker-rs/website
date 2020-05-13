@@ -17,7 +17,7 @@ We can see that without starting any actors ourselves, there's already a number 
 
 There's then three root actors, `user`, `system` and `temp`. These are guardian actors under which all other actors are created. Perhaps the most important of these is `user`, since most actors created as part of the application are created in this branch.
 
-If we start an actor using `system.actor_of(props, "my-actor")` we can see it added under `user`:
+If we start an actor (e.g. using `system.actor_of::<MyActorType>("my-actor")`) we can see it added under `user`:
 
 ```
 my-app
@@ -31,7 +31,7 @@ my-app
 └─ temp
 ```
 
-In this case the newly created `my-actor` has a path of `/user/my-actor`. Since it was started by using `actor_of` on `ActorSystem` it is considered a top-level actor.
+In this case the newly created `my-actor` has a path of `/user/my-actor`. Since it was started on `ActorSystem` it is considered a top-level actor.
 
 Let's look at how the hierarchy changes when another actor is started, this time from within `/user/my-actor`'s `recv` method using `Context.actor_of`.
 
@@ -44,7 +44,7 @@ impl Actor for MyActor {
             msg: String,
             sender: Sender) {
 
-        ctx.actor_of(MyActor::props(), "my-child").unwrap();
+        ctx.actor_of::<MyActor>("my-child").unwrap();
     }
 }
 ```
