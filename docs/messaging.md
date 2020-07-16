@@ -95,4 +95,4 @@ By utilizing `Receive<T>` and `#[actor]`, complex message handling can be define
 
 In the next section, we'll explore the relationship between actors and how actors form a hierarchy.
 
-[Actor Hierarchy](hierarchy)
+[Actor Hierarchy](hierarchy.md)

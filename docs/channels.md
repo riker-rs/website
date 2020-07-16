@@ -84,4 +84,4 @@ Channels form an integral part of the Riker system and provide essential service
 
 Next we'll look at scheduling messages to be sent at a time in the future.
 
-[Scheduling Messages](scheduling)
+[Scheduling Messages](scheduling.md)

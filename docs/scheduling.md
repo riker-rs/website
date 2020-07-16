@@ -88,8 +88,8 @@ Message scheduling is a core feature of concurrent systems and can drive applica
 
 We've covered the basics of the Riker Framework. Other topics include:
 
-[Configuration](config)
+[Configuration](config.md)
 
-[Running Futures](futures)
+[Running Futures](futures.md)
 
-[Logging](logging)
+[Logging](logging.md)
