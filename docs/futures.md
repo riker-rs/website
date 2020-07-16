@@ -19,4 +19,4 @@ assert_eq!(block_on(handle), "someval".to_string());
 
 In the next section we'll see how to to test Riker applications.
 
-[Testing](testing)
+[Testing](testing.md)
