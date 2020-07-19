@@ -7,6 +7,9 @@ So far you've seen a simple example where an actor's message type is defined in 
 Let's see how these are used:
 
 ```rust
+use std::time::Duration;
+use riker::actors::*;
+
 // Define the messages we'll use
 #[derive(Clone, Debug)]
 pub struct Add;
@@ -20,6 +23,7 @@ pub struct Print;
 // Define the Actor and use the 'actor' attribute
 // to specify which messages it will receive
 #[actor(Add, Sub, Print)]
+#[derive(Default)]
 struct Counter {
     count: u32,
 }
@@ -75,7 +79,7 @@ fn main() {
     let sys = ActorSystem::new().unwrap();
 
     let props = Props::new::<Counter>();
-    let actor = sys.actor_of_props(props, "counter").unwrap();
+    let actor = sys.actor_of_props("counter", props).unwrap();
     actor.tell(Add, None);
     actor.tell(Add, None);
     actor.tell(Sub, None);
