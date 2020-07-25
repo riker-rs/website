@@ -12,7 +12,7 @@ There are two methods that provide one-time scheduling:
 Examples:
 
 ```rust
-let delay = Duration::from_secs(1);
+let delay = Duration::from_secs(20);
 let actor = ctx.actor_of::<MyActor>("my-actor").unwrap();
 
 ctx.schedule_once(delay,
