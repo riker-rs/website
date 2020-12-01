@@ -6,8 +6,8 @@ import Badge from '../../Atoms/Badge'
 
 const badges = [
   {
-    badgeUrl: 'https://travis-ci.org/riker-rs/riker',
-    badgeSrc: 'https://camo.githubusercontent.com/1a83234a219d856e921a700b2ebdf8ba356bf717/68747470733a2f2f7472617669732d63692e6f72672f72696b65722d72732f72696b65722e7376673f6272616e63683d6d6173746572'
+    badgeUrl: 'https://github.com/riker-rs/riker/actions?query=workflow%3A%22Build+and+run+tests%22',
+    badgeSrc: 'https://github.com/riker-rs/riker/workflows/Build%20and%20run%20tests/badge.svg'
   },
   {
     badgeUrl: 'https://github.com/riker-rs/riker/blob/master/LICENSE',
