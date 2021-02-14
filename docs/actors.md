@@ -233,6 +233,6 @@ Riker provides certain guarantees when handling messages:
 
 On this page, you learned the basics of creating a Riker application using actors. Let's move on to the next section to see more comprehensive example using multiple message types:
 
-[Sending multiple message types](messaging)
+[Sending multiple message types](/messaging)
 
 [1]: https://en.wikipedia.org/wiki/Actor_model
