@@ -34,7 +34,7 @@ Actors only run and use a CPU thread when they have one or more messages in thei
 
 It's possible to have thousands or millions of actors that share just two CPU core/threads.
 
-**Can Riker run on muliple hosts?**
+**Can Riker run on multiple hosts?**
 
 Like any application a Riker application can easily be distributed across multiple network hosts or Docker containers. Applications can be load balanced using simple load balancing or form part of a more complex system using a [Kubernetes](https://kubernetes.io/), [Linkerd](https://linkerd.io/), etc.
 
