@@ -91,8 +91,8 @@ In this example, we've used `#actor[Add, Sub, Print]` to set up the actor to rec
 !!! note
     When using the `#[actor()]` attribute, the actor's `Msg` associated type should be set to '[DataType]Msg'. E.g. if an actor is a struct named `MyActor`, then the `Actor::Msg` associated type will be `MyActorMsg`.
 
-By utilizing `Receive<T>` and `#[actor]`, complex message handling can be defined clearly and concisely. For more advanced messaging examples see [Advanced Messaging](advanced).
+By utilizing `Receive<T>` and `#[actor]`, complex message handling can be defined clearly and concisely. For more advanced messaging examples see [Advanced Messaging](advanced.md).
 
 In the next section, we'll explore the relationship between actors and how actors form a hierarchy.
 
-[Actor Hierarchy](hierarchy)
+[Actor Hierarchy](hierarchy.md)

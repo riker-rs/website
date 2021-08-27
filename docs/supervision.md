@@ -83,4 +83,4 @@ Good supervisor design is key to designing resilient, fault tolerant systems. At
 
 Next we'll see how actor paths can be utilized to message actors without an actor reference and broadcast to entire segments of the actor hierarchy.
 
-[Actor Selection](selection)
+[Actor Selection](selection.md)
